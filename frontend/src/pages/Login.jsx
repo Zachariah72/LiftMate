@@ -55,13 +55,16 @@ const Login = () => {
   };
 
   return (
-    <Container
-      maxWidth="md"
+    <Box
       sx={{
         minHeight: '100vh',
+        width: '100vw',
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         py: 4,
-        px: 2
+        px: 2,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}
     >
       <Box
@@ -204,7 +207,7 @@ const Login = () => {
           </CardContent>
         </Card>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
