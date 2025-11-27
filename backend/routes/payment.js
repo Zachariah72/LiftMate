@@ -1,5 +1,5 @@
 const express = require('express');
-const { stkPush, stkPushQuery } = require('../mpesa');
+const { stkPush, stkPushQuery, transactionStatusQuery } = require('../mpesa');
 const Ride = require('../models/Ride');
 
 const router = express.Router();
@@ -26,6 +26,20 @@ router.post('/mpesa-query', async (req, res) => {
         res.json(response);
     } catch (err) {
         res.status(500).json({ message: 'M-Pesa query error', err });
+    }
+});
+
+// Query M-Pesa transaction status
+router.post('/mpesa-transaction-status', async (req, res) => {
+    const { transactionId } = req.body;
+    if (!transactionId) {
+        return res.status(400).json({ message: 'TransactionId is required' });
+    }
+    try {
+        const response = await transactionStatusQuery(transactionId);
+        res.json(response);
+    } catch (err) {
+        res.status(500).json({ message: 'M-Pesa transaction status error', err });
     }
 });
 

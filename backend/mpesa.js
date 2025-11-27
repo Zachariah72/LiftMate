@@ -73,4 +73,32 @@ async function stkPushQuery(checkoutRequestId) {
   return response.data;
 }
 
-module.exports = { stkPush, stkPushQuery };
+// Query transaction status
+async function transactionStatusQuery(transactionId) {
+  const token = await getAccessToken();
+  const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14); // YYYYMMDDHHMMSS
+  const password = Buffer.from(`${MPESA_SHORTCODE}${MPESA_PASSKEY}${timestamp}`).toString('base64');
+
+  const url =
+    MPESA_ENV === 'sandbox'
+      ? 'https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query'
+      : 'https://api.safaricom.co.ke/mpesa/transactionstatus/v1/query';
+
+  const payload = {
+    Initiator: process.env.MPESA_INITIATOR_NAME || 'testapi',
+    SecurityCredential: process.env.MPESA_SECURITY_CREDENTIAL || 'test',
+    CommandID: 'TransactionStatusQuery',
+    TransactionID: transactionId,
+    PartyA: MPESA_SHORTCODE,
+    IdentifierType: '4',
+    ResultURL: MPESA_CALLBACK_URL,
+    QueueTimeOutURL: MPESA_CALLBACK_URL,
+    Remarks: 'Transaction status check',
+    Occasion: 'LiftMate'
+  };
+
+  const response = await axios.post(url, payload, { headers: { Authorization: `Bearer ${token}` } });
+  return response.data;
+}
+
+module.exports = { stkPush, stkPushQuery, transactionStatusQuery };
