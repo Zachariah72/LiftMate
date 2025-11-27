@@ -20,7 +20,7 @@ L.Icon.Default.mergeOptions({
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const MapView = ({ pickup, dropoff, routes, selectedRouteIndex, center, markers, onSpeakInstructions }) => {
+const MapView = ({ pickup, dropoff, routes, selectedRouteIndex, center, markers, onSpeakInstructions, fullScreen = false }) => {
   const defaultPosition = [-1.2921, 36.8219]; // Nairobi center
   const [eta, setEta] = useState(null);
 
@@ -89,6 +89,60 @@ const MapView = ({ pickup, dropoff, routes, selectedRouteIndex, center, markers,
     iconSize: [34, 34],
     iconAnchor: [17, 17]
   });
+
+  if (fullScreen) {
+    return (
+      <MapContainer
+        center={center || pickup || defaultPosition}
+        zoom={13}
+        style={{ height: '100vh', width: '100vw' }}
+        zoomControl={true}
+      >
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="OpenStreetMap">
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Satellite">
+            <TileLayer
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              attribution='&copy; <a href="https://www.arcgis.com/">Esri</a>'
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Terrain">
+            <TileLayer
+              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
+            />
+          </LayersControl.BaseLayer>
+        </LayersControl>
+
+        {pickup && (
+          <Marker position={pickup} icon={riderIcon}>
+            <Popup>
+              <Box sx={{ p: 1 }}>
+                <Typography variant="h6">📍 Pickup Location</Typography>
+                <Typography variant="body2">Passenger waiting here</Typography>
+              </Box>
+            </Popup>
+          </Marker>
+        )}
+        {dropoff && (
+          <Marker position={dropoff} icon={rideIcon}>
+            <Popup>
+              <Box sx={{ p: 1 }}>
+                <Typography variant="h6">🎯 Dropoff Location</Typography>
+                <Typography variant="body2">Destination</Typography>
+              </Box>
+            </Popup>
+          </Marker>
+        )}
+        {pickup && dropoff && <Routing />}
+      </MapContainer>
+    );
+  }
 
   return (
     <Box sx={{ mt: 3, position: 'relative', borderRadius: 2, overflow: 'hidden', boxShadow: 3 }}>

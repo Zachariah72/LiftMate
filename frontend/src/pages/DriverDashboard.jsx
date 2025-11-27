@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getAvailableRides, acceptRide, completeRide, markDriverArrived, getDriverStats } from '../api/rides';
 import MapView from '../components/MapView';
+import NavigationAssistant from '../components/NavigationAssistant';
 import { Container, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid, Card, CardContent, Paper, IconButton, Tabs, Tab, keyframes } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -154,6 +155,17 @@ const DriverDashboard = ({ onStatusUpdate }) => {
       rideData: ride
     }))
   ];
+
+  // Show navigation mode for active rides
+  if (currentRide) {
+    return (
+      <NavigationAssistant
+        currentRide={currentRide}
+        onCompleteRide={handleCompleteRide}
+        onArrive={handleArrive}
+      />
+    );
+  }
 
   return (
     <Container maxWidth="xl" sx={{ mt: 3, mb: 3, px: 0, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '100vh', borderRadius: 3, p: 3, boxShadow: 3 }}>
