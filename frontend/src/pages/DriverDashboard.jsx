@@ -49,15 +49,36 @@ const DriverDashboard = ({ onStatusUpdate }) => {
     const fetchRides = async () => {
       try {
         const res = await getAvailableRides(user.token);
+        const newRideCount = res.data.length;
+        const previousCount = availableRides.length;
+
+        // Play notification tone if new rides are available
+        if (newRideCount > previousCount && previousCount > 0) {
+          playNotificationTone();
+        }
+
         setAvailableRides(res.data);
       } catch (err) {
         console.error('Error fetching rides:', err);
       }
     };
+
+    const playNotificationTone = () => {
+      try {
+        const audio = new Audio('/Tones/mixkit-correct-answer-tone-2870.wav');
+        audio.volume = 0.5; // Set volume to 50%
+        audio.play().catch(err => {
+          console.log('Audio play failed:', err);
+        });
+      } catch (error) {
+        console.log('Audio initialization failed:', error);
+      }
+    };
+
     fetchRides();
-    const interval = setInterval(fetchRides, 10000); // Update every 10 seconds
+    const interval = setInterval(fetchRides, 5000); // Update every 5 seconds for faster notifications
     return () => clearInterval(interval);
-  }, [user.token]);
+  }, [user.token, availableRides.length]);
 
   useEffect(() => {
     const fetchStats = async () => {

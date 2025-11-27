@@ -24,6 +24,12 @@ router.post('/create', verifyToken, async (req, res) => {
       status: 'requested'
     });
     await ride.save();
+
+    // Notify nearby drivers (within 30km)
+    // For now, we'll just log this. In a real implementation,
+    // you'd use WebSockets, push notifications, or polling
+    console.log(`New ride created at ${pickupLocation}. Notifying drivers within 30km.`);
+
     res.json({ message: 'Ride requested', ride });
   } catch (error) {
     res.status(500).json({ message: 'Error creating ride', error });
