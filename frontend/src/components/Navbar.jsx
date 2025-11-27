@@ -86,7 +86,7 @@ const Navbar = () => {
         }}
         onClick={handleRideClick}
       >
-        🚗 Ride
+        Ride
       </Button>
       <Button
         sx={{
@@ -106,7 +106,7 @@ const Navbar = () => {
         }}
         onClick={handleDriveClick}
       >
-        🚙 Drive
+        Drive
       </Button>
       <Button
         sx={{
@@ -125,7 +125,7 @@ const Navbar = () => {
           transition: 'all 0.3s ease'
         }}
       >
-        💼 Business
+        Business
       </Button>
       <Button
         component={Link}
@@ -146,7 +146,7 @@ const Navbar = () => {
           transition: 'all 0.3s ease'
         }}
       >
-        ℹ️ About
+        About
       </Button>
 
       <Box sx={{ flexGrow: 1 }} />
@@ -172,7 +172,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            📝 Request Ride
+            Request Ride
           </Button>
           <Button
             component={Link}
@@ -193,7 +193,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            📋 My Rides
+            My Rides
           </Button>
           <Button
             onClick={logout}
@@ -214,7 +214,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            🚪 Logout
+            Logout
           </Button>
         </>
       ) : (
@@ -235,7 +235,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            🌐 EN
+            EN
           </Button>
           <Button
             sx={{
@@ -253,7 +253,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            ❓ Help
+            Help
           </Button>
           <Button
             component={Link}
@@ -275,7 +275,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            🔐 Log in
+            Log in
           </Button>
           <Button
             component={Link}
@@ -298,7 +298,7 @@ const Navbar = () => {
               transition: 'all 0.3s ease'
             }}
           >
-            ✨ Sign up
+            Sign up
           </Button>
         </>
       )}
