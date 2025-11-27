@@ -145,7 +145,7 @@ const Register = () => {
               </Typography>
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
                 <Chip
-                  icon={<RiderIcon />}
+                  icon={<img src="/images/passenger.png" alt="passenger" style={{ width: 24, height: 24, borderRadius: '50%' }} />}
                   label="Rider"
                   onClick={() => setValue('role', 'rider')}
                   sx={{
