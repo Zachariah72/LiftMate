@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "lift-mate-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +9,13 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "vercel": {
+    "buildCommand": "npm run build",
+    "installCommand": "npm install",
+    "outputDirectory": "dist",
+    "devCommand": "npm run dev"
+  },
   "dependencies": {
-    "@clerk/nextjs": "^6.35.4",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.5",

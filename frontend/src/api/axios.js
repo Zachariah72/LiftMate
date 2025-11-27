@@ -10,8 +10,9 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && (error.response.status === 401 || error.response.status === 400)) {
-      // Token invalid or expired, logout
+    if (error.response && error.response.status === 401) {
+      // Only clear token and redirect on 401 (unauthorized)
+      // 400 errors could be other validation issues, not necessarily token problems
       localStorage.removeItem('token');
       window.location.href = '/login';
     }

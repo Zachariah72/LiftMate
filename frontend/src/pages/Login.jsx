@@ -44,7 +44,9 @@ const Login = () => {
     setLoading(false);
 
     if (res.success) {
-      if (res.role === 'driver') {
+      // Fix: Access role from user object, not directly from response
+      const userRole = res.user?.role;
+      if (userRole === 'driver') {
         navigate('/driver-dashboard');
       } else {
         navigate('/ride-request');

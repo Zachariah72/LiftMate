@@ -12,6 +12,11 @@ const {
 
 // Get OAuth access token
 async function getAccessToken() {
+  // Validate required environment variables
+  if (!MPESA_CONSUMER_KEY || !MPESA_CONSUMER_SECRET) {
+    throw new Error('M-Pesa credentials not configured. Please set MPESA_CONSUMER_KEY and MPESA_CONSUMER_SECRET environment variables.');
+  }
+  
   const url =
     MPESA_ENV === 'sandbox'
       ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
@@ -24,6 +29,11 @@ async function getAccessToken() {
 
 // Trigger STK Push payment
 async function stkPush(phone, amount, rideId) {
+  // Validate required environment variables
+  if (!MPESA_SHORTCODE || !MPESA_PASSKEY) {
+    throw new Error('M-Pesa not configured. Please set MPESA_SHORTCODE and MPESA_PASSKEY environment variables.');
+  }
+  
   const token = await getAccessToken();
   const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14); // YYYYMMDDHHMMSS
   const password = Buffer.from(`${MPESA_SHORTCODE}${MPESA_PASSKEY}${timestamp}`).toString('base64');

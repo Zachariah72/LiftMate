@@ -108,6 +108,30 @@ The application will be available at:
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:5000
 
+## 🚀 Deployment
+
+### Quick Start: Production Deployment
+
+**Deploy your LiftMate app to production with these guides:**
+
+1. **📖 [Complete Vercel + Render Integration Guide](backend/VERCEL_RENDER_INTEGRATION.md)** - Full-stack deployment
+2. **🔧 [Render Backend Deployment](backend/RENDER_DEPLOYMENT.md)** - Backend-only deployment guide
+3. **🌐 [Frontend Vercel Deployment](frontend/VERCEL_DEPLOYMENT.md)** - Frontend deployment guide
+
+### Recommended Architecture:
+- **Frontend**: Vercel (React/Vite app)
+- **Backend**: Render (Node.js/Express API)
+- **Database**: MongoDB Atlas
+- **Payments**: M-Pesa + Stripe
+
+### Environment Setup:
+- **Frontend** (Vercel): Copy [`frontend/.env.example`](frontend/.env.example) → `.env`
+- **Backend** (Render): Copy [`backend/.env.example`](backend/.env.example) → Configure in Render dashboard
+
+**Production URLs will be:**
+- Frontend: `https://your-app.vercel.app`
+- Backend: `https://your-backend.onrender.com/api`
+
 ## 📖 Usage
 
 ### For Passengers

@@ -10,6 +10,13 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     const { name, email, password, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor } = req.body;
     try {
+        console.log('Attempting registration for:', email);
+        
+        // Validate required fields
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "Name, email, and password are required" });
+        }
+        
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -19,11 +26,20 @@ router.post('/register', async (req, res) => {
         const hashed = await bcrypt.hash(password, 10);
         const user = new User({ name, email, password: hashed, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor });
         await user.save();
+        
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
     } catch (error) {
-        console.error('Registration error:', error);
-        res.status(500).json({ message: "Registration error", error });
+        console.error('Registration error details:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        });
+        res.status(500).json({ 
+            message: "Registration error", 
+            error: error.message,
+            details: error.name
+        });
     }
 });
 
