@@ -23,6 +23,7 @@ const corsOptions = {
       'http://localhost:5173',
       'https://localhost:3000',
       'https://localhost:5173',
+      'http://192.168.100.25:5173', // Local network IP
       // Production Vercel domain
       'https://lift-mate.vercel.app',
       // Backend domain for health checks

@@ -245,7 +245,7 @@ router.get('/driver-stats', verifyToken, async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
       return res.status(500).json({ message: 'Database not connected' });
     }
-    const driverId = req.user.id;
+    const driverId = new mongoose.Types.ObjectId(req.user.id);
     const now = new Date();
     const startOfDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
     const startOfWeek = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - now.getUTCDay()));
