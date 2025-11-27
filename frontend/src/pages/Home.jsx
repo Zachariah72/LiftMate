@@ -67,6 +67,32 @@ const Home = () => {
   const [pickup, setPickup] = useState('');
   const [destination, setDestination] = useState('');
 
+  const handleButtonClick = (action) => {
+    switch (action) {
+      case 'see-prices':
+        navigate('/ride-request');
+        break;
+      case 'login':
+        navigate('/login');
+        break;
+      case 'register':
+        navigate('/register');
+        break;
+      case 'airports':
+        navigate('/airports');
+        break;
+      case 'cities':
+        navigate('/cities');
+        break;
+      case 'business':
+        // Could navigate to a business page or open a modal
+        alert('Business solutions coming soon! Contact us for enterprise pricing.');
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     if (user) {
       navigate('/ride-request');
@@ -84,7 +110,7 @@ const Home = () => {
           justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
-          background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url(/images/pexels-alina-kurson-80193566-8732920.jpg)',
+          backgroundImage: 'url(/images/pexels-alina-kurson-80193566-8732920.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
@@ -97,26 +123,12 @@ const Home = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0,0,0,0.3)',
+            background: 'rgba(0,0,0,0.5)',
             zIndex: 1
           }
         }}
       >
         <Box sx={{ position: 'relative', zIndex: 2, animation: `${fadeIn} 1s ease-out` }}>
-          <Avatar
-            sx={{
-              width: 120,
-              height: 120,
-              mx: 'auto',
-              mb: 3,
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              boxShadow: '0 8px 32px rgba(102, 126, 234, 0.3)',
-              animation: `${pulse} 2s infinite`
-            }}
-          >
-            <DirectionsCarIcon sx={{ fontSize: 60, color: 'white' }} />
-          </Avatar>
-
           <Typography
             variant="h2"
             sx={{
@@ -128,7 +140,8 @@ const Home = () => {
               animation: `${slideIn} 1s ease-out 0.2s both`
             }}
           >
-            🚗 LiftMate
+            <Box component="span" sx={{ color: '#ffd700' }}>Lift</Box>
+            <Box component="span" sx={{ color: '#667eea' }}>Mate</Box>
           </Typography>
 
           <Typography
@@ -215,7 +228,7 @@ const Home = () => {
                 },
                 transition: 'all 0.3s ease'
               }}
-              onClick={() => navigate('/ride-request')}
+              onClick={() => handleButtonClick('see-prices')}
             >
               🚀 See Prices & Book Now
             </Button>
@@ -232,7 +245,7 @@ const Home = () => {
             >
               <Button
                 variant="outlined"
-                onClick={() => navigate('/login')}
+                onClick={() => handleButtonClick('login')}
                 sx={{
                   borderColor: 'white',
                   color: 'white',
@@ -256,7 +269,7 @@ const Home = () => {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => navigate('/register')}
+                onClick={() => handleButtonClick('register')}
                 sx={{
                   background: 'linear-gradient(135deg, #ffd700 0%, #ffb300 100%)',
                   color: '#1e0a78',
@@ -500,7 +513,7 @@ const Home = () => {
               },
               transition: 'all 0.3s ease'
             }}
-            onClick={() => navigate('/airports')}
+            onClick={() => handleButtonClick('airports')}
           >
             ✈️ Search Airports
           </Button>
@@ -569,7 +582,7 @@ const Home = () => {
               },
               transition: 'all 0.3s ease'
             }}
-            onClick={() => navigate('/cities')}
+            onClick={() => handleButtonClick('cities')}
           >
             🌍 Search Cities
           </Button>
@@ -731,6 +744,7 @@ const Home = () => {
               },
               transition: 'all 0.3s ease'
             }}
+            onClick={() => handleButtonClick('business')}
           >
             🚀 Get Started Today
           </Button>
