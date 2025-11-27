@@ -395,10 +395,28 @@ const DriverDashboard = ({ onStatusUpdate }) => {
       </Card>
 
       {/* Map */}
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 0, height: currentRide ? '700px' : '600px' }}>
-            <Typography variant="h6" gutterBottom sx={{ p: 2 }}>Live Map{currentRide ? ' - Ride in Progress' : ''}</Typography>
+      <Box sx={{ width: '100%', mb: 2 }}>
+        <Paper sx={{
+          p: 0,
+          height: currentRide ? '700px' : '600px',
+          width: '100%',
+          borderRadius: 2,
+          overflow: 'hidden',
+          boxShadow: 3
+        }}>
+          <Typography
+            variant="h6"
+            sx={{
+              p: 2,
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              m: 0,
+              fontWeight: 'bold'
+            }}
+          >
+            🗺️ Live Map{currentRide ? ' - Ride in Progress' : ''}
+          </Typography>
+          <Box sx={{ height: 'calc(100% - 64px)', width: '100%' }}>
             <MapView
               center={[-1.2921, 36.8219]}
               markers={markers}
@@ -406,9 +424,9 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               dropoff={currentRide ? [parseFloat(currentRide.dropoffLocation.split(',')[0]), parseFloat(currentRide.dropoffLocation.split(',')[1])] : null}
               routes={[]} // Add routes if needed
             />
-          </Paper>
-        </Grid>
-      </Grid>
+          </Box>
+        </Paper>
+      </Box>
 
       {/* Current Ride Details */}
       {currentRide && (
