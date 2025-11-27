@@ -186,15 +186,25 @@ Update your frontend API configuration to point to your Render backend:
    - Make sure all environment variables are set
    - Check for typos in variable names
 
-3. **M-Pesa not working**:
+3. **"Neither apiKey nor config.authenticator provided" (Stripe error)**:
+   - Set the `STRIPE_SECRET_KEY` environment variable in Render
+   - Ensure the key starts with `sk_test_` or `sk_live_`
+   - If you don't need Stripe immediately, you can deploy without it and add the key later
+
+4. **M-Pesa not working**:
    - Verify all M-Pesa environment variables
    - Check if `MPESA_CALLBACK_URL` matches your actual URL
    - Ensure you're using the correct M-Pesa environment (sandbox/production)
+   - The app will now show helpful error messages if M-Pesa is not configured
 
-4. **Build fails**:
+5. **Build fails**:
    - Check the build logs in Render dashboard
    - Ensure your `package.json` scripts are correct
    - Verify all dependencies are properly defined
+
+6. **Environment variables not loading**:
+   - Make sure to set environment variables in Render dashboard, not in `.env` files
+   - Restart your service after adding new environment variables
 
 ### Logs Location:
 - Render Dashboard → Your Service → "Logs" tab
@@ -228,6 +238,8 @@ Update your frontend API configuration to point to your Render backend:
 4. **Rate Limiting**: Consider adding rate limiting for API endpoints
 5. **HTTPS**: Render provides HTTPS automatically
 6. **Database**: Use MongoDB Atlas network access restrictions in production
+7. **Graceful Error Handling**: The app now handles missing API keys gracefully instead of crashing on startup
+8. **Optional Payment Providers**: M-Pesa and Stripe features are optional - the app runs without them but shows helpful error messages when payment features are accessed
 
 ## Next Steps
 

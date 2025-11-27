@@ -101,12 +101,17 @@ router.post('/callback', async (req, res) => {
     res.json({ ResultCode: 0, ResultDesc: 'Accepted' });
 });
 
-module.exports = router;
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
+// Stripe payment endpoint
 router.post('/card', async (req, res) => {
     const { amount, paymentMethodId } = req.body;
+    
+    // Check if Stripe is configured
+    if (!process.env.STRIPE_SECRET_KEY) {
+        return res.status(500).json({ message: 'Stripe not configured. Please set STRIPE_SECRET_KEY environment variable.' });
+    }
+    
     try {
+        const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
         const paymentIntent = await stripe.paymentIntents.create({
             amount: amount * 100, // convert to cents
             currency: 'usd',
@@ -118,3 +123,5 @@ router.post('/card', async (req, res) => {
         res.status(500).json({ message: 'Card payment error', err });
     }
 });
+
+module.exports = router;
