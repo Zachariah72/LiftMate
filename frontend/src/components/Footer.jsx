@@ -145,14 +145,13 @@ const linkStyle = {
 };
 
 const socialStyle = {
-  display: "inline-block",
+  display: "flex",
   width: "40px",
   height: "40px",
   borderRadius: "50%",
   color: "white",
   textDecoration: "none",
   fontSize: "18px",
-  display: "flex",
   alignItems: "center",
   justifyContent: "center",
   transition: "all 0.3s ease",
