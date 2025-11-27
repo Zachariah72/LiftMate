@@ -21,6 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import EmailIcon from '@mui/icons-material/Email';
+import KycVerificationDialog from './KycVerificationDialog';
 
 const ProfileDialog = ({ open, onClose, user, onSave }) => {
   const [formData, setFormData] = useState({
@@ -31,6 +32,7 @@ const ProfileDialog = ({ open, onClose, user, onSave }) => {
   const [previewUrl, setPreviewUrl] = useState(user?.profilePicture || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [kycOpen, setKycOpen] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleInputChange = (field, value) => {
@@ -83,6 +85,17 @@ const ProfileDialog = ({ open, onClose, user, onSave }) => {
       setError('Failed to update profile. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleKycSubmit = async (formData) => {
+    try {
+      // In a real app, you would make an API call to submit KYC documents
+      console.log('Submitting KYC documents:', formData);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -317,13 +330,14 @@ const ProfileDialog = ({ open, onClose, user, onSave }) => {
                         <Button
                           variant="contained"
                           size="small"
+                          onClick={() => setKycOpen(true)}
                           sx={{
                             mt: 1,
                             backgroundColor: '#f57c00',
                             '&:hover': { backgroundColor: '#ef6c00' }
                           }}
                         >
-                          Upload Documents
+                          Start Verification
                         </Button>
                       </Box>
                     </>
@@ -358,6 +372,14 @@ const ProfileDialog = ({ open, onClose, user, onSave }) => {
           {loading ? 'Saving...' : 'Save Changes'}
         </Button>
       </DialogActions>
+
+      {/* KYC Verification Dialog */}
+      <KycVerificationDialog
+        open={kycOpen}
+        onClose={() => setKycOpen(false)}
+        user={user}
+        onSubmit={handleKycSubmit}
+      />
     </Dialog>
   );
 };
