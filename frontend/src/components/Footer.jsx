@@ -143,9 +143,9 @@ const Footer = ({ currentRide, todaysEarnings }) => {
           </p>
         </div>
         <div style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}>
-          <a href="#" style={linkStyle}>🔒 Privacy</a>
-          <a href="#" style={linkStyle}>♿ Accessibility</a>
-          <a href="#" style={linkStyle}>📋 Terms</a>
+          <a href="#" style={linkStyle}>Privacy</a>
+          <a href="#" style={linkStyle}>Accessibility</a>
+          <a href="#" style={linkStyle}>Terms</a>
         </div>
       </div>
     </footer>
