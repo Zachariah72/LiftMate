@@ -26,7 +26,8 @@ import {
   PersonPin as RiderIcon,
   Wc as GenderIcon,
   DirectionsCar as CarIcon,
-  ColorLens as ColorIcon
+  ColorLens as ColorIcon,
+  CalendarToday as CalendarIcon
 } from '@mui/icons-material';
 
 // Define animations
@@ -66,7 +67,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await registerUser(data.name, data.email, data.password, data.role, data.gender, data.carRegNumber, data.carMake, data.carModel, data.carColor);
+    const res = await registerUser(data.name, data.email, data.password, data.role, data.gender, data.dateOfBirth, data.carRegNumber, data.carMake, data.carModel, data.carColor);
     setLoading(false);
 
     if (res.success) {
@@ -260,6 +261,26 @@ const Register = () => {
                     <MenuItem value="female">👩 Female</MenuItem>
                   </Select>
                 </FormControl>
+
+                <TextField
+                  label="Date of Birth"
+                  type="date"
+                  fullWidth
+                  {...register('dateOfBirth')}
+                  required
+                  InputProps={{
+                    startAdornment: <CalendarIcon sx={{ color: '#667eea', mr: 1 }} />
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '&:hover fieldset': { borderColor: '#667eea' },
+                      '&.Mui-focused fieldset': { borderColor: '#667eea' }
+                    }
+                  }}
+                />
 
                 {/* Driver-specific fields */}
                 {watch('role') === 'driver' && (

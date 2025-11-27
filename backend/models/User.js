@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['driver', 'rider'], default: 'rider' },
     resetToken: { type: String },
     gender: { type: String, enum: ['male', 'female'], required: true },
+    dateOfBirth: { type: Date, required: true },
     carRegNumber: { type: String },
     carMake: { type: String },
     carModel: { type: String },
@@ -15,11 +16,15 @@ const userSchema = new mongoose.Schema({
       type: { type: String, enum: ['Point'], default: 'Point' },
       coordinates: { type: [Number], default: [0, 0] }
     },
-    location: {
-        type: { type: String, enum: ['Point'], default: 'Point' },
-        coordinates: { type: [Number], default: [0, 0] } // [longitude, latitude]
-    },
-    isAvailable: { type: Boolean, default: true }
+    isAvailable: { type: Boolean, default: true },
+    nickname: { type: String },
+    profilePicture: { type: String },
+    isVerified: { type: Boolean, default: false },
+    kycDocuments: {
+      idDocument: { type: String },
+      passport: { type: String },
+      driversLicense: { type: String }
+    }
 }, { timestamps: true });
 
 userSchema.index({ location: '2dsphere' });
