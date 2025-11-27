@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getDriverStats } from '../api/rides';
 import SettingsDialog from './SettingsDialog';
+import ProfileDialog from './ProfileDialog';
 import {
   AppBar,
   Toolbar,
@@ -56,6 +57,7 @@ const Navbar = () => {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [driverStats, setDriverStats] = useState({ ordersReceived: { today: 0 }, earnings: 0 });
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(() => localStorage.getItem('themeColor') || '#667eea');
 
   const handleMenuOpen = (event) => {
@@ -97,6 +99,20 @@ const Navbar = () => {
     localStorage.setItem('themeColor', newColor);
     // In a real app, you would update the global theme context here
     document.documentElement.style.setProperty('--primary-color', newColor);
+  };
+
+  // Handle profile save
+  const handleProfileSave = async (profileData) => {
+    try {
+      // In a real app, you would make an API call to update the profile
+      // For now, we'll just update the local user state
+      console.log('Saving profile:', profileData);
+      // Update user context with new profile data
+      // This would typically involve an API call and updating the auth context
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      throw error;
+    }
   };
 
   const handleRideClick = () => {
@@ -555,7 +571,7 @@ const Navbar = () => {
                 <Divider />
 
                 {/* Menu Items */}
-                <MenuItem onClick={() => { navigate('/profile'); handleProfileMenuClose(); }}>
+                <MenuItem onClick={() => { setProfileOpen(true); handleProfileMenuClose(); }}>
                   <ListItemIcon>
                     <EditIcon fontSize="small" />
                   </ListItemIcon>
@@ -589,6 +605,14 @@ const Navbar = () => {
         onClose={() => setSettingsOpen(false)}
         currentTheme={currentTheme}
         onThemeChange={handleThemeChange}
+      />
+
+      {/* Profile Dialog */}
+      <ProfileDialog
+        open={profileOpen}
+        onClose={() => setProfileOpen(false)}
+        user={user}
+        onSave={handleProfileSave}
       />
     </AppBar>
   );
