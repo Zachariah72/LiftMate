@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getDriverStats } from '../api/rides';
+import SettingsDialog from './SettingsDialog';
 import {
   AppBar,
   Toolbar,
@@ -55,6 +56,7 @@ const Navbar = () => {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [driverStats, setDriverStats] = useState({ ordersReceived: { today: 0 }, earnings: 0 });
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(() => localStorage.getItem('themeColor') || '#667eea');
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,6 +90,14 @@ const Navbar = () => {
       fetchStats();
     }
   }, [user]);
+
+  // Handle theme changes
+  const handleThemeChange = (newColor) => {
+    setCurrentTheme(newColor);
+    localStorage.setItem('themeColor', newColor);
+    // In a real app, you would update the global theme context here
+    document.documentElement.style.setProperty('--primary-color', newColor);
+  };
 
   const handleRideClick = () => {
     if (user) {
@@ -572,6 +582,14 @@ const Navbar = () => {
           </ClickAwayListener>
         )}
       </Popper>
+
+      {/* Settings Dialog */}
+      <SettingsDialog
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        currentTheme={currentTheme}
+        onThemeChange={handleThemeChange}
+      />
     </AppBar>
   );
 };
