@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (token) {
         const decoded = jwtDecode(token); // ✅ Works
-        
+
         // Check if token is expired
         const currentTime = Date.now() / 1000;
         if (decoded.exp && decoded.exp < currentTime) {
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("token");
           return null;
         }
-        
+
         return { ...decoded, token };
       }
       return null;
@@ -47,10 +47,10 @@ export const AuthProvider = ({ children }) => {
       setUser({ ...decoded, token });
 
       // Return complete user data including role
-      return { 
-        success: true, 
+      return {
+        success: true,
         user: user,
-        role: decoded.role 
+        role: decoded.role
       };
     } catch (err) {
       return {
@@ -62,22 +62,17 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor) => {
     try {
-<<<<<<< HEAD
       const res = await api.post("/auth/register", { name, email, password, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor });
-      const token = res.data.token;
-=======
-      const res = await api.post("/auth/register", { name, email, password, role, gender, carRegNumber, carMake, carModel, carColor });
       const { token, user } = res.data;
->>>>>>> c89805cac1b11ea27819fc6f311437b9d20be517
 
       const decoded = jwtDecode(token); // ✅ Works
       setUser({ ...decoded, token });
 
       // Return complete user data including role
-      return { 
+      return {
         success: true,
         user: user,
-        role: decoded.role 
+        role: decoded.role
       };
     } catch (err) {
       return {
