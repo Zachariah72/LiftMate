@@ -24,10 +24,11 @@ const corsOptions = {
       'https://localhost:3000',
       'https://localhost:5173',
       'http://192.168.100.25:5173', // Local network IP
-      // Production Vercel domain
+      // Production Vercel domains
       'https://lift-mate.vercel.app',
-      'https://lift-mate-zeta.vercel.app', // Updated production frontend
-      'https://lift-mate-clip6auu6-zachariahs-projects-c4361150.vercel.app', // Actual deployed frontend
+      'https://lift-mate-zeta.vercel.app',
+      'https://lift-mate-clip6auu6-zachariahs-projects-c4361150.vercel.app',
+      'https://lift-mate-pq11mk5sj-zachariahs-projects-c4361150.vercel.app', // New Vercel frontend URL
       // Backend domain for health checks
       'https://liftmate-46f4.onrender.com',
       'https://liftmate-1.onrender.com', // Updated production backend
