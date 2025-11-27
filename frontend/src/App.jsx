@@ -109,10 +109,7 @@ const AppContent = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Box>
-      <Footer
-        currentRide={isDriverDashboard ? driverStatus.currentRide : undefined}
-        todaysEarnings={isDriverDashboard ? driverStatus.todaysEarnings : undefined}
-      />
+      <Footer />
     </>
   );
 };

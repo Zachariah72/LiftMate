@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { getDriverStats } from '../api/rides';
 import {
   AppBar,
   Toolbar,
@@ -12,9 +13,25 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Avatar,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Popper,
+  ClickAwayListener,
+  Fade,
   keyframes
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import EditIcon from '@mui/icons-material/Edit';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 // Define animations
 const fadeIn = keyframes`
@@ -35,6 +52,9 @@ const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const [driverStats, setDriverStats] = useState({ ordersReceived: { today: 0 }, earnings: 0 });
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,7 +64,30 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+  const handleProfileMenuOpen = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setProfileAnchorEl(null);
+  };
+
   const isActive = (path) => location.pathname === path;
+
+  // Fetch driver stats for profile dropdown
+  useEffect(() => {
+    if (user && user.role === 'driver') {
+      const fetchStats = async () => {
+        try {
+          const res = await getDriverStats(user.token);
+          setDriverStats(res.data);
+        } catch (err) {
+          console.error('Error fetching driver stats:', err);
+        }
+      };
+      fetchStats();
+    }
+  }, [user]);
 
   const handleRideClick = () => {
     if (user) {
@@ -195,27 +238,46 @@ const Navbar = () => {
           >
             My Rides
           </Button>
-          <Button
-            onClick={logout}
+          <IconButton
+            onClick={handleProfileMenuOpen}
             sx={{
-              color: 'white',
-              mx: 1,
-              px: 2,
-              py: 1,
-              borderRadius: 2,
-              fontWeight: 'bold',
-              backgroundColor: 'rgba(244, 67, 54, 0.1)',
-              border: '1px solid rgba(244, 67, 54, 0.3)',
+              ml: 1,
+              border: user?.isVerified ? '2px solid #4caf50' : '2px solid transparent',
               '&:hover': {
-                backgroundColor: 'rgba(244, 67, 54, 0.2)',
-                transform: 'translateY(-1px)',
-                boxShadow: '0 4px 12px rgba(244, 67, 54, 0.3)'
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                transform: 'scale(1.05)'
               },
               transition: 'all 0.3s ease'
             }}
           >
-            Logout
-          </Button>
+            <Avatar
+              sx={{
+                width: 40,
+                height: 40,
+                bgcolor: user?.isVerified ? '#4caf50' : '#667eea',
+                border: user?.isVerified ? '2px solid #4caf50' : 'none'
+              }}
+              src={user?.profilePicture}
+            >
+              {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            </Avatar>
+            {user?.isVerified && (
+              <Box
+                component="img"
+                src="/images/verified.png"
+                sx={{
+                  position: 'absolute',
+                  top: -5,
+                  right: -5,
+                  width: 16,
+                  height: 16,
+                  borderRadius: '50%',
+                  backgroundColor: 'white',
+                  padding: '1px'
+                }}
+              />
+            )}
+          </IconButton>
         </>
       ) : (
         <>
@@ -384,6 +446,132 @@ const Navbar = () => {
 
         {isMobile ? renderMobileMenu() : renderDesktopMenu()}
       </Toolbar>
+
+      {/* Profile Dropdown Menu */}
+      <Popper
+        open={Boolean(profileAnchorEl)}
+        anchorEl={profileAnchorEl}
+        role={undefined}
+        placement="bottom-end"
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <ClickAwayListener onClickAway={handleProfileMenuClose}>
+            <Fade
+              {...TransitionProps}
+              timeout={350}
+              style={{
+                transformOrigin: placement === 'bottom-end' ? 'right top' : 'right bottom',
+              }}
+            >
+              <Paper
+                sx={{
+                  minWidth: 300,
+                  maxWidth: 400,
+                  mt: 1,
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                  borderRadius: 2,
+                  overflow: 'hidden'
+                }}
+              >
+                {/* User Info Header */}
+                <Box sx={{ p: 2, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Avatar
+                      sx={{
+                        width: 50,
+                        height: 50,
+                        bgcolor: user?.isVerified ? '#4caf50' : '#667eea',
+                        border: user?.isVerified ? '3px solid #4caf50' : 'none'
+                      }}
+                      src={user?.profilePicture}
+                    >
+                      {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                    </Avatar>
+                    {user?.isVerified && (
+                      <Box
+                        component="img"
+                        src="/images/verified.png"
+                        sx={{
+                          position: 'absolute',
+                          top: 12,
+                          left: 42,
+                          width: 20,
+                          height: 20,
+                          borderRadius: '50%',
+                          backgroundColor: 'white',
+                          padding: '1px'
+                        }}
+                      />
+                    )}
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        {user?.nickname || user?.name || 'User'}
+                      </Typography>
+                      <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                        {user?.email}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+
+                {/* Driver Status Section */}
+                {user?.role === 'driver' && (
+                  <>
+                    <Divider />
+                    <Box sx={{ p: 2 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1, color: '#333' }}>
+                        🚗 Driver Status
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          <LocationOnIcon sx={{ color: '#ff9800', fontSize: 18 }} />
+                          <Typography variant="body2">
+                            Active Ride: None
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          <AttachMoneyIcon sx={{ color: '#4caf50', fontSize: 18 }} />
+                          <Typography variant="body2">
+                            Earnings Today: KES {driverStats.earnings || 0}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </>
+                )}
+
+                <Divider />
+
+                {/* Menu Items */}
+                <MenuItem onClick={() => { navigate('/profile'); handleProfileMenuClose(); }}>
+                  <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Edit Profile</ListItemText>
+                </MenuItem>
+
+                <MenuItem onClick={() => { setSettingsOpen(true); handleProfileMenuClose(); }}>
+                  <ListItemIcon>
+                    <SettingsIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Settings</ListItemText>
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem onClick={() => { logout(); handleProfileMenuClose(); }}>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Logout</ListItemText>
+                </MenuItem>
+              </Paper>
+            </Fade>
+          </ClickAwayListener>
+        )}
+      </Popper>
     </AppBar>
   );
 };

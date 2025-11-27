@@ -1,4 +1,4 @@
-const Footer = ({ currentRide, todaysEarnings }) => {
+const Footer = () => {
   return (
     <footer
       style={{
@@ -83,27 +83,6 @@ const Footer = ({ currentRide, todaysEarnings }) => {
           </ul>
         </div>
 
-        {/* DRIVER STATUS */}
-        {currentRide !== undefined && (
-          <div>
-            <h3 style={{ color: "white", marginBottom: "20px", fontSize: "1.2rem", fontWeight: "bold" }}>🚗 Driver Status</h3>
-            <div style={{
-              backgroundColor: "rgba(102, 126, 234, 0.1)",
-              padding: "20px",
-              borderRadius: "10px",
-              border: "1px solid rgba(102, 126, 234, 0.2)"
-            }}>
-              <p style={{ marginBottom: "15px", color: "#fff", fontSize: "1rem", fontWeight: "bold" }}>
-                📍 Active Ride: <span style={{ color: currentRide ? "#4caf50" : "#f44336" }}>
-                  {currentRide ? 'In Progress' : 'None'}
-                </span>
-              </p>
-              <p style={{ color: "#ffd700", fontSize: "1.1rem", fontWeight: "bold" }}>
-                💰 Earnings Today: KES {todaysEarnings || 0}
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* TRAVEL */}
         <div>
