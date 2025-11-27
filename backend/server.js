@@ -26,10 +26,12 @@ const corsOptions = {
       'http://192.168.100.25:5173', // Local network IP
       // Production Vercel domain
       'https://lift-mate.vercel.app',
+      'https://lift-mate-zeta.vercel.app', // Updated production frontend
       // Backend domain for health checks
       'https://liftmate-46f4.onrender.com',
+      'https://liftmate-1.onrender.com', // Updated production backend
       // Environment variable fallback
-      process.env.FRONTEND_URL || 'https://lift-mate.vercel.app'
+      process.env.FRONTEND_URL || 'https://lift-mate-zeta.vercel.app'
     ];
     
     if (allowedOrigins.includes(origin)) {
