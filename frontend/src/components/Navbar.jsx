@@ -167,7 +167,7 @@ const Navbar = () => {
               '&:hover': {
                 backgroundColor: 'rgba(255,255,255,0.1)',
                 transform: 'translateY(-1px)',
-                boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
+                boxShadow: '0 4px 12px rgba(35, 76, 106, 0.3)'
               },
               transition: 'all 0.3s ease'
             }}
@@ -188,7 +188,7 @@ const Navbar = () => {
               '&:hover': {
                 backgroundColor: 'rgba(255,255,255,0.1)',
                 transform: 'translateY(-1px)',
-                boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
+                boxShadow: '0 4px 12px rgba(35, 76, 106, 0.3)'
               },
               transition: 'all 0.3s ease'
             }}
@@ -230,7 +230,7 @@ const Navbar = () => {
               '&:hover': {
                 backgroundColor: 'rgba(255,255,255,0.1)',
                 transform: 'translateY(-1px)',
-                boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
+                boxShadow: '0 4px 12px rgba(35, 76, 106, 0.3)'
               },
               transition: 'all 0.3s ease'
             }}
@@ -268,9 +268,9 @@ const Navbar = () => {
               border: '2px solid white',
               '&:hover': {
                 backgroundColor: 'white',
-                color: '#667eea',
+                color: '#234C6A',
                 transform: 'translateY(-1px)',
-                boxShadow: '0 4px 12px rgba(255,255,255,0.3)'
+                boxShadow: '0 4px 12px rgba(35, 76, 106, 0.3)'
               },
               transition: 'all 0.3s ease'
             }}
@@ -353,22 +353,12 @@ const Navbar = () => {
     <AppBar
       position="static"
       sx={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        boxShadow: '0 8px 32px rgba(102, 126, 234, 0.3)',
+        background: '#234C6A',
+        boxShadow: '0 8px 32px rgba(35, 76, 106, 0.3)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid rgba(255,255,255,0.1)',
         animation: `${fadeIn} 0.8s ease-out`,
-        position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
-          zIndex: -1
-        }
+        position: 'relative'
       }}
     >
       <Toolbar sx={{ py: 1 }}>
