@@ -264,10 +264,12 @@ const KycVerificationDialog = ({ open, onClose, user, onSubmit }) => {
       onClose={!uploading ? onClose : undefined}
       maxWidth="md"
       fullWidth
+      fullScreen={false}
       PaperProps={{
         sx: {
-          borderRadius: 3,
-          background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)'
+          borderRadius: { xs: 0, sm: 3 },
+          background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
+          m: { xs: 0, sm: 2 }
         }
       }}
     >

@@ -114,10 +114,12 @@ const ProfileDialog = ({ open, onClose, user, onSave }) => {
       onClose={onClose}
       maxWidth="sm"
       fullWidth
+      fullScreen={false}
       PaperProps={{
         sx: {
-          borderRadius: 3,
-          background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)'
+          borderRadius: { xs: 0, sm: 3 },
+          background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
+          m: { xs: 0, sm: 2 }
         }
       }}
     >

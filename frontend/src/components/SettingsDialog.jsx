@@ -47,10 +47,12 @@ const SettingsDialog = ({ open, onClose, currentTheme, onThemeChange }) => {
       onClose={onClose}
       maxWidth="sm"
       fullWidth
+      fullScreen={false}
       PaperProps={{
         sx: {
-          borderRadius: 3,
-          background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)'
+          borderRadius: { xs: 0, sm: 3 },
+          background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
+          m: { xs: 0, sm: 2 }
         }
       }}
     >
@@ -83,7 +85,7 @@ const SettingsDialog = ({ open, onClose, currentTheme, onThemeChange }) => {
 
           <Grid container spacing={2}>
             {colorOptions.map((color) => (
-              <Grid item xs={6} sm={3} key={color.value}>
+              <Grid item xs={6} sm={4} md={3} key={color.value}>
                 <Paper
                   onClick={() => handleColorSelect(color.value)}
                   sx={{

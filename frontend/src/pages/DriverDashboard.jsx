@@ -185,8 +185,19 @@ const DriverDashboard = ({ onStatusUpdate }) => {
       </Typography>
 
       {/* Stats Cards */}
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 4, width: '100%', justifyContent: 'space-between' }}>
-        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
+      <Box sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: { xs: 1, sm: 2 },
+        mb: 4,
+        width: '100%',
+        justifyContent: { xs: 'center', sm: 'space-between' }
+      }}>
+        <Box sx={{
+          flex: { xs: '1 1 100%', sm: '1 1 calc(20% - 16px)' },
+          minWidth: { xs: '150px', sm: '200px' },
+          maxWidth: { xs: '100%', sm: '250px' }
+        }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%)',
@@ -224,7 +235,11 @@ const DriverDashboard = ({ onStatusUpdate }) => {
             </CardContent>
           </Card>
         </Box>
-        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
+        <Box sx={{
+          flex: { xs: '1 1 100%', sm: '1 1 calc(20% - 16px)' },
+          minWidth: { xs: '150px', sm: '200px' },
+          maxWidth: { xs: '100%', sm: '250px' }
+        }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%)',
@@ -245,8 +260,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Box sx={{
                 backgroundColor: '#ff9800',
                 borderRadius: '50%',
-                width: 60,
-                height: 60,
+                width: { xs: 50, sm: 60 },
+                height: { xs: 50, sm: 60 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -255,14 +270,18 @@ const DriverDashboard = ({ onStatusUpdate }) => {
                 transition: 'transform 0.3s ease',
                 '&:hover': { transform: 'scale(1.1)' }
               }}>
-                <LocationOnIcon sx={{ fontSize: 30, color: 'white' }} />
+                <LocationOnIcon sx={{ fontSize: { xs: 25, sm: 30 }, color: 'white' }} />
               </Box>
-              <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#f57c00' }}>{currentRide ? 1 : 0}</Typography>
-              <Typography sx={{ color: '#e65100', fontWeight: 'medium' }}>Current Ride</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#f57c00', fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>{currentRide ? 1 : 0}</Typography>
+              <Typography sx={{ color: '#e65100', fontWeight: 'medium', fontSize: { xs: '0.875rem', sm: '1rem' } }}>Current Ride</Typography>
             </CardContent>
           </Card>
         </Box>
-        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
+        <Box sx={{
+          flex: { xs: '1 1 100%', sm: '1 1 calc(20% - 16px)' },
+          minWidth: { xs: '150px', sm: '200px' },
+          maxWidth: { xs: '100%', sm: '250px' }
+        }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%)',
@@ -281,8 +300,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Box sx={{
                 backgroundColor: '#e91e63',
                 borderRadius: '50%',
-                width: 60,
-                height: 60,
+                width: { xs: 50, sm: 60 },
+                height: { xs: 50, sm: 60 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -291,14 +310,18 @@ const DriverDashboard = ({ onStatusUpdate }) => {
                 transition: 'transform 0.3s ease',
                 '&:hover': { transform: 'scale(1.1)' }
               }}>
-                <ReceiptIcon sx={{ fontSize: 30, color: 'white' }} />
+                <ReceiptIcon sx={{ fontSize: { xs: 25, sm: 30 }, color: 'white' }} />
               </Box>
-              <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#c2185b' }}>{stats.ordersReceived.total}</Typography>
-              <Typography sx={{ color: '#ad1457', fontWeight: 'medium' }}>Orders Received</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#c2185b', fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>{stats.ordersReceived.total}</Typography>
+              <Typography sx={{ color: '#ad1457', fontWeight: 'medium', fontSize: { xs: '0.875rem', sm: '1rem' } }}>Orders Received</Typography>
             </CardContent>
           </Card>
         </Box>
-        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
+        <Box sx={{
+          flex: { xs: '1 1 100%', sm: '1 1 calc(20% - 16px)' },
+          minWidth: { xs: '150px', sm: '200px' },
+          maxWidth: { xs: '100%', sm: '250px' }
+        }}>
           <Card
             sx={{
               background: currentRide ? 'linear-gradient(135deg, #fff9c4 0%, #fff176 100%)' : 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
@@ -316,8 +339,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Box sx={{
                 backgroundColor: currentRide ? '#ffeb3b' : '#bdbdbd',
                 borderRadius: '50%',
-                width: 60,
-                height: 60,
+                width: { xs: 50, sm: 60 },
+                height: { xs: 50, sm: 60 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -328,7 +351,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               }}>
                 <img src="/images/car.png" alt="car" style={{ width: 30, height: 30, filter: currentRide ? 'none' : 'grayscale(100%)' }} />
               </Box>
-              <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentRide ? '#f57c00' : '#757575' }}>
+              <Typography variant="h5" sx={{ fontWeight: 'bold', color: currentRide ? '#f57c00' : '#757575', fontSize: { xs: '1.125rem', sm: '1.5rem' } }}>
                 {currentRide ? 'Active' : 'No Active'}
               </Typography>
               <Typography sx={{ fontSize: '0.75rem', color: currentRide ? '#f57c00' : '#757575' }}>
@@ -337,7 +360,11 @@ const DriverDashboard = ({ onStatusUpdate }) => {
             </CardContent>
           </Card>
         </Box>
-        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
+        <Box sx={{
+          flex: { xs: '1 1 100%', sm: '1 1 calc(20% - 16px)' },
+          minWidth: { xs: '150px', sm: '200px' },
+          maxWidth: { xs: '100%', sm: '250px' }
+        }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
@@ -357,8 +384,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
                 <Box sx={{
                   backgroundColor: '#2196f3',
                   borderRadius: '50%',
-                  width: 60,
-                  height: 60,
+                  width: { xs: 50, sm: 60 },
+                  height: { xs: 50, sm: 60 },
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -366,22 +393,24 @@ const DriverDashboard = ({ onStatusUpdate }) => {
                   transition: 'transform 0.3s ease',
                   '&:hover': { transform: 'scale(1.1)' }
                 }}>
-                  <AttachMoneyIcon sx={{ fontSize: 30, color: 'white' }} />
+                  <AttachMoneyIcon sx={{ fontSize: { xs: 25, sm: 30 }, color: 'white' }} />
                 </Box>
                 <IconButton
                   onClick={() => setBalanceVisible(!balanceVisible)}
                   sx={{
                     backgroundColor: 'rgba(255,255,255,0.2)',
-                    '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' }
+                    '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' },
+                    width: { xs: 35, sm: 40 },
+                    height: { xs: 35, sm: 40 }
                   }}
                 >
-                  {balanceVisible ? <VisibilityIcon sx={{ color: 'white' }} /> : <VisibilityOffIcon sx={{ color: 'white' }} />}
+                  {balanceVisible ? <VisibilityIcon sx={{ color: 'white', fontSize: { xs: 18, sm: 20 } }} /> : <VisibilityOffIcon sx={{ color: 'white', fontSize: { xs: 18, sm: 20 } }} />}
                 </IconButton>
               </Box>
-              <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2', fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
                 {balanceVisible ? `KES ${stats.earnings}` : '****'}
               </Typography>
-              <Typography sx={{ color: '#1565c0', fontWeight: 'medium' }}>Total Earnings</Typography>
+              <Typography sx={{ color: '#1565c0', fontWeight: 'medium', fontSize: { xs: '0.875rem', sm: '1rem' } }}>Total Earnings</Typography>
             </CardContent>
           </Card>
         </Box>
@@ -410,7 +439,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
       <Box sx={{ width: '100%', mb: 2 }}>
         <Paper sx={{
           p: 0,
-          height: currentRide ? '700px' : '600px',
+          height: { xs: currentRide ? '500px' : '400px', sm: currentRide ? '700px' : '600px' },
           width: '100%',
           borderRadius: 2,
           overflow: 'hidden',
@@ -419,16 +448,17 @@ const DriverDashboard = ({ onStatusUpdate }) => {
           <Typography
             variant="h6"
             sx={{
-              p: 2,
+              p: { xs: 1.5, sm: 2 },
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: 'white',
               m: 0,
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize: { xs: '1rem', sm: '1.25rem' }
             }}
           >
             🗺️ Live Map{currentRide ? ' - Ride in Progress' : ''}
           </Typography>
-          <Box sx={{ height: 'calc(100% - 64px)', width: '100%' }}>
+          <Box sx={{ height: { xs: 'calc(100% - 48px)', sm: 'calc(100% - 64px)' }, width: '100%' }}>
             <MapView
               center={[-1.2921, 36.8219]}
               markers={markers}
