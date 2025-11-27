@@ -104,7 +104,8 @@ const Home = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          minHeight: '100vh',
+          height: '100vh',
+          width: '100vw',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -114,7 +115,6 @@ const Home = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          padding: { xs: '20px', md: '40px 20px' },
           position: 'relative',
           '&::before': {
             content: '""',
@@ -123,12 +123,12 @@ const Home = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0,0,0,0.5)',
+            background: 'rgba(102, 126, 234, 0.7)',
             zIndex: 1
           }
         }}
       >
-        <Box sx={{ position: 'relative', zIndex: 2, animation: `${fadeIn} 1s ease-out` }}>
+        <Box sx={{ position: 'relative', zIndex: 2, animation: `${fadeIn} 1s ease-out`, px: { xs: 3, md: 4 } }}>
           <Typography
             variant="h2"
             sx={{
