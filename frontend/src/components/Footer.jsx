@@ -65,11 +65,11 @@ const Footer = ({ currentRide, todaysEarnings }) => {
         <div>
           <h3 style={{ color: "white", marginBottom: "20px", fontSize: "1.2rem", fontWeight: "bold" }}>Products</h3>
           <ul style={{ listStyle: "none", padding: 0, lineHeight: "2" }}>
-            <li><a href="#" style={linkStyle}>🚗 Ride</a></li>
-            <li><a href="#" style={linkStyle}>🚙 Drive</a></li>
-            <li><a href="#" style={linkStyle}>📦 Deliver</a></li>
-            <li><a href="#" style={linkStyle}>💼 LiftMate for Business</a></li>
-            <li><a href="#" style={linkStyle}>🎁 Gift cards</a></li>
+            <li><a href="#" style={linkStyle}>Ride</a></li>
+            <li><a href="#" style={linkStyle}>Drive</a></li>
+            <li><a href="#" style={linkStyle}>Deliver</a></li>
+            <li><a href="#" style={linkStyle}>LiftMate for Business</a></li>
+            <li><a href="#" style={linkStyle}>Gift cards</a></li>
           </ul>
         </div>
 
@@ -77,9 +77,9 @@ const Footer = ({ currentRide, todaysEarnings }) => {
         <div>
           <h3 style={{ color: "white", marginBottom: "20px", fontSize: "1.2rem", fontWeight: "bold" }}>Global Citizenship</h3>
           <ul style={{ listStyle: "none", padding: 0, lineHeight: "2" }}>
-            <li><a href="#" style={linkStyle}>🛡️ Safety</a></li>
-            <li><a href="#" style={linkStyle}>🌱 Sustainability</a></li>
-            <li><a href="#" style={linkStyle}>🤝 Diversity</a></li>
+            <li><a href="#" style={linkStyle}>Safety</a></li>
+            <li><a href="#" style={linkStyle}>Sustainability</a></li>
+            <li><a href="#" style={linkStyle}>Diversity</a></li>
           </ul>
         </div>
 
