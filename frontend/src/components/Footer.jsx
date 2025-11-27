@@ -107,11 +107,11 @@ const Footer = ({ currentRide, todaysEarnings }) => {
 
         {/* TRAVEL */}
         <div>
-          <h3 style={{ color: "white", marginBottom: "20px", fontSize: "1.2rem", fontWeight: "bold" }}>✈️ Travel</h3>
+          <h3 style={{ color: "white", marginBottom: "20px", fontSize: "1.2rem", fontWeight: "bold" }}>Travel</h3>
           <ul style={{ listStyle: "none", padding: 0, lineHeight: "2" }}>
-            <li><a href="#" style={linkStyle}>📅 Reserve</a></li>
-            <li><a href="#" style={linkStyle}>🛫 Airports</a></li>
-            <li><a href="#" style={linkStyle}>🏙️ Cities</a></li>
+            <li><a href="#" style={linkStyle}>Reserve</a></li>
+            <li><a href="#" style={linkStyle}>Airports</a></li>
+            <li><a href="#" style={linkStyle}>Cities</a></li>
           </ul>
         </div>
       </div>
