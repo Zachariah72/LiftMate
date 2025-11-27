@@ -3,6 +3,8 @@ import { AuthContext } from '../context/AuthContext';
 import { getAvailableRides, acceptRide, completeRide, markDriverArrived, getDriverStats } from '../api/rides';
 import MapView from '../components/MapView';
 import NavigationAssistant from '../components/NavigationAssistant';
+import AnimatedCard from '../components/ui/AnimatedCard';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { Container, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid, Card, CardContent, Paper, IconButton, Tabs, Tab, keyframes } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -10,6 +12,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import { useTheme } from '../context/ThemeContext';
 
 // Define animations
 const fadeIn = keyframes`
@@ -36,6 +39,7 @@ const slideIn = keyframes`
 
 const DriverDashboard = ({ onStatusUpdate }) => {
   const { user } = useContext(AuthContext);
+  const { soundEnabled } = useTheme();
   const navigate = useNavigate();
   const [availableRides, setAvailableRides] = useState([]);
   const [selectedRide, setSelectedRide] = useState(null);
@@ -45,6 +49,9 @@ const DriverDashboard = ({ onStatusUpdate }) => {
   const [balanceVisible, setBalanceVisible] = useState(true);
   const [statsTab, setStatsTab] = useState(0);
   const [showCurrentRideDetails, setShowCurrentRideDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
     const fetchRides = async () => {
@@ -53,14 +60,16 @@ const DriverDashboard = ({ onStatusUpdate }) => {
         const newRideCount = res.data.length;
         const previousCount = availableRides.length;
 
-        // Play notification tone if new rides are available
-        if (newRideCount > previousCount && previousCount > 0) {
+        // Play notification tone if new rides are available and sound is enabled
+        if (newRideCount > previousCount && previousCount > 0 && soundEnabled) {
           playNotificationTone();
         }
 
         setAvailableRides(res.data);
+        setLoading(false);
       } catch (err) {
         console.error('Error fetching rides:', err);
+        setLoading(false);
       }
     };
 
@@ -79,15 +88,17 @@ const DriverDashboard = ({ onStatusUpdate }) => {
     fetchRides();
     const interval = setInterval(fetchRides, 5000); // Update every 5 seconds for faster notifications
     return () => clearInterval(interval);
-  }, [user.token, availableRides.length]);
+  }, [user.token, availableRides.length, soundEnabled]);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const res = await getDriverStats(user.token);
         setStats(res.data);
+        setStatsLoading(false);
       } catch (err) {
         console.error('Error fetching stats:', err);
+        setStatsLoading(false);
       }
     };
     fetchStats();
@@ -104,15 +115,18 @@ const DriverDashboard = ({ onStatusUpdate }) => {
   }, [currentRide, stats.ordersReceived.today, onStatusUpdate]);
 
   const handleAcceptRide = async (ride) => {
+    setActionLoading(true);
     try {
       await acceptRide(ride._id, user.token);
       setCurrentRide(ride);
       setAvailableRides(availableRides.filter(r => r._id !== ride._id));
       setSelectedRide(null);
-      alert('Ride accepted!');
+      // Success feedback will be shown via navigation to ride view
     } catch (err) {
       console.error('Error accepting ride:', err);
-      alert('Failed to accept ride');
+      alert('Failed to accept ride. Please try again.');
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -164,6 +178,14 @@ const DriverDashboard = ({ onStatusUpdate }) => {
         onCompleteRide={handleCompleteRide}
         onArrive={handleArrive}
       />
+    );
+  }
+
+  if (loading) {
+    return (
+      <Container maxWidth="xl" sx={{ mt: 3, mb: 3, px: 0, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '100vh', borderRadius: 3, p: 3, boxShadow: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <LoadingSpinner size={60} message="Loading your dashboard..." />
+      </Container>
     );
   }
 

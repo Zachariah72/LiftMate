@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext, AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
@@ -15,20 +16,11 @@ import DriverDashboard from './pages/DriverDashboard';
 import RideRequestsList from './pages/RideRequestsList';
 import CurrentRidePage from './pages/CurrentRidePage';
 import Home from './pages/Home';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { NotificationContainer, useNotifications } from './components/ui/Notification';
 import './App.css';
-
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      'Raleway',
-      'sans-serif',
-    ].join(','),
-  },
-});
 
 const PrivateRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -39,6 +31,7 @@ const AppContent = () => {
   const location = useLocation();
   const { user } = useContext(AuthContext);
   const [driverStatus, setDriverStatus] = useState({ currentRide: null, todaysEarnings: 0 });
+  const { notifications, closeNotification, success, error, warning, info } = useNotifications();
 
   // Update driver status when on driver dashboard
   useEffect(() => {
@@ -110,13 +103,19 @@ const AppContent = () => {
         </Routes>
       </Box>
       <Footer />
+
+      {/* Global Notifications */}
+      <NotificationContainer
+        notifications={notifications}
+        onClose={closeNotification}
+      />
     </>
   );
 };
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <AuthProvider>
         <Router>
           <AppContent />

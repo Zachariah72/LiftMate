@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import { useTheme } from '../context/ThemeContext';
 
 const colorOptions = [
   { name: 'Blue', value: '#667eea', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
@@ -27,17 +28,16 @@ const colorOptions = [
   { name: 'Pink', value: '#E91E63', gradient: 'linear-gradient(135deg, #E91E63 0%, #C2185B 100%)' }
 ];
 
-const SettingsDialog = ({ open, onClose, currentTheme, onThemeChange }) => {
+const SettingsDialog = ({ open, onClose }) => {
+  const { currentTheme, updateTheme, soundEnabled, toggleSound, animationsEnabled, toggleAnimations } = useTheme();
   const [selectedColor, setSelectedColor] = useState(currentTheme || '#667eea');
-  const [notifications, setNotifications] = useState(true);
-  const [soundEffects, setSoundEffects] = useState(true);
 
   const handleColorSelect = (color) => {
     setSelectedColor(color);
   };
 
   const handleSave = () => {
-    onThemeChange(selectedColor);
+    updateTheme(selectedColor);
     onClose();
   };
 
@@ -133,20 +133,20 @@ const SettingsDialog = ({ open, onClose, currentTheme, onThemeChange }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={notifications}
-                  onChange={(e) => setNotifications(e.target.checked)}
+                  checked={animationsEnabled}
+                  onChange={toggleAnimations}
                   color="primary"
                 />
               }
-              label="Push Notifications"
+              label="Animations"
               sx={{ '& .MuiFormControlLabel-label': { fontSize: '1rem' } }}
             />
 
             <FormControlLabel
               control={
                 <Switch
-                  checked={soundEffects}
-                  onChange={(e) => setSoundEffects(e.target.checked)}
+                  checked={soundEnabled}
+                  onChange={toggleSound}
                   color="primary"
                 />
               }

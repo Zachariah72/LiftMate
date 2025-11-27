@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { getDriverStats } from '../api/rides';
 import SettingsDialog from './SettingsDialog';
 import ProfileDialog from './ProfileDialog';
@@ -10,7 +11,6 @@ import {
   Button,
   Typography,
   Box,
-  useTheme,
   useMediaQuery,
   IconButton,
   Menu,
@@ -49,6 +49,7 @@ const fadeIn = keyframes`
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const { currentTheme, updateTheme, soundEnabled, toggleSound } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -58,7 +59,6 @@ const Navbar = () => {
   const [driverStats, setDriverStats] = useState({ ordersReceived: { today: 0 }, earnings: 0 });
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(() => localStorage.getItem('themeColor') || '#667eea');
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -95,10 +95,7 @@ const Navbar = () => {
 
   // Handle theme changes
   const handleThemeChange = (newColor) => {
-    setCurrentTheme(newColor);
-    localStorage.setItem('themeColor', newColor);
-    // In a real app, you would update the global theme context here
-    document.documentElement.style.setProperty('--primary-color', newColor);
+    updateTheme(newColor);
   };
 
   // Handle profile save
