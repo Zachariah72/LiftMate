@@ -3,7 +3,34 @@ import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../context/AuthContext';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  Avatar,
+  keyframes
+} from '@mui/material';
+import {
+  Email as EmailIcon,
+  Lock as LockIcon,
+  Login as LoginIcon
+} from '@mui/icons-material';
+
+// Define animations
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -28,50 +55,154 @@ const Login = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={5} sx={{ textAlign: 'center', backgroundColor: '#f9f9f9', padding: 4, borderRadius: 2, boxShadow: 3 }}>
-        <Typography variant="h4" className="bungee-spice-regular" gutterBottom sx={{ color: '#062B32' }}>
-          Login
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            margin="normal"
-            {...register('email')}
-            required
-            sx={{ mb: 2 }}
-            inputProps={{ autoComplete: 'email' }}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            {...register('password')}
-            required
-            sx={{ mb: 2 }}
-            inputProps={{ autoComplete: 'current-password' }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{ mt: 2, mb: 2, backgroundColor: '#062B32', '&:hover': { backgroundColor: '#054a4f' } }}
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </Button>
-        </form>
-        <Box mt={2}>
-          <Typography sx={{ mb: 1 }}>
-            <Link to="/forgot-password" style={{ color: '#062B32', textDecoration: 'none' }}>Forgot Password?</Link>
-          </Typography>
-          <Typography>
-            Don't have an account? <Link to="/register" style={{ color: '#062B32', textDecoration: 'none' }}>Register here</Link>
-          </Typography>
-        </Box>
+    <Container
+      maxWidth="md"
+      sx={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        py: 4,
+        px: 2
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh'
+        }}
+      >
+        <Card
+          sx={{
+            maxWidth: 450,
+            width: '100%',
+            borderRadius: 4,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+            animation: `${fadeIn} 1s ease-in`,
+            background: 'rgba(255,255,255,0.95)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          <CardContent sx={{ p: 4 }}>
+            <Box sx={{ textAlign: 'center', mb: 4 }}>
+              <Avatar
+                sx={{
+                  width: 80,
+                  height: 80,
+                  mx: 'auto',
+                  mb: 2,
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                }}
+              >
+                <LoginIcon sx={{ fontSize: 40, color: 'white' }} />
+              </Avatar>
+              <Typography
+                variant="h4"
+                sx={{
+                  color: '#062B32',
+                  fontWeight: 'bold',
+                  mb: 1,
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.1)'
+                }}
+              >
+                🚗 Welcome Back
+              </Typography>
+              <Typography variant="body1" sx={{ color: '#666' }}>
+                Sign in to continue your journey
+              </Typography>
+            </Box>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Box sx={{ display: 'grid', gap: 3 }}>
+                <TextField
+                  label="Email Address"
+                  type="email"
+                  fullWidth
+                  {...register('email')}
+                  required
+                  InputProps={{
+                    startAdornment: <EmailIcon sx={{ color: '#667eea', mr: 1 }} />
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '&:hover fieldset': { borderColor: '#667eea' },
+                      '&.Mui-focused fieldset': { borderColor: '#667eea' }
+                    }
+                  }}
+                />
+
+                <TextField
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  {...register('password')}
+                  required
+                  InputProps={{
+                    startAdornment: <LockIcon sx={{ color: '#667eea', mr: 1 }} />
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '&:hover fieldset': { borderColor: '#667eea' },
+                      '&.Mui-focused fieldset': { borderColor: '#667eea' }
+                    }
+                  }}
+                />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    mt: 2,
+                    py: 1.5,
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 8px 25px rgba(102, 126, 234, 0.4)'
+                    },
+                    transition: 'all 0.3s ease'
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? '🔐 Signing In...' : '🚀 Sign In'}
+                </Button>
+              </Box>
+            </form>
+
+            <Box sx={{ mt: 3, textAlign: 'center' }}>
+              <Typography variant="body2" sx={{ mb: 1, color: '#666' }}>
+                <Link
+                  to="/forgot-password"
+                  style={{
+                    color: '#667eea',
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    '&:hover': { textDecoration: 'underline' }
+                  }}
+                >
+                  Forgot your password?
+                </Link>
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#666' }}>
+                New to LiftMate?{' '}
+                <Link
+                  to="/register"
+                  style={{
+                    color: '#667eea',
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    '&:hover': { textDecoration: 'underline' }
+                  }}
+                >
+                  Create Account
+                </Link>
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
       </Box>
     </Container>
   );
