@@ -165,7 +165,7 @@ const Register = () => {
                   }}
                 />
                 <Chip
-                  icon={<DriverIcon />}
+                  icon={<img src="/images/8583437.png" alt="driver" style={{ width: 24, height: 24, borderRadius: '50%' }} />}
                   label="Driver"
                   onClick={() => setValue('role', 'driver')}
                   sx={{
