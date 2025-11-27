@@ -275,17 +275,76 @@ const Home = () => {
       </Box>
 
       {/* Download App */}
-      <Box sx={{ padding: '60px 20px', textAlign: 'center' }}>
-        <Typography variant="h3" gutterBottom sx={{ mb: 4 }}>
+      <Box sx={{ padding: '60px 20px', textAlign: 'center', backgroundColor: '#f8f9fa' }}>
+        <Typography variant="h3" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
           Download the LiftMate app
         </Typography>
-        <Typography variant="h6" sx={{ mb: 4 }}>
-          Scan to download
+        <Typography variant="h6" sx={{ mb: 4, color: '#666' }}>
+          Scan to download - Available on Android & iOS
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-          <Button variant="contained" startIcon={<AndroidIcon />} sx={{ backgroundColor: '#000', color: 'white' }}>Android</Button>
-          <Button variant="contained" startIcon={<AppleIcon />} sx={{ backgroundColor: '#000', color: 'white' }}>iOS</Button>
-        </Box>
+
+        <Grid container spacing={4} justifyContent="center" alignItems="center">
+          <Grid item xs={12} md={4}>
+            <Box
+              sx={{
+                width: 200,
+                height: 200,
+                backgroundColor: '#fff',
+                border: '2px solid #667eea',
+                borderRadius: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mx: 'auto',
+                mb: 2,
+                boxShadow: 3
+              }}
+            >
+              <Typography variant="body2" sx={{ color: '#666', textAlign: 'center' }}>
+                📱 QR Code<br/>Coming Soon
+              </Typography>
+            </Box>
+            <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#667eea' }}>
+              Scan with your phone camera
+            </Typography>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Typography variant="h6" gutterBottom sx={{ color: '#333' }}>
+              Get the app for:
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Button
+                variant="contained"
+                startIcon={<AndroidIcon />}
+                sx={{
+                  backgroundColor: '#4caf50',
+                  color: 'white',
+                  py: 1.5,
+                  '&:hover': { backgroundColor: '#45a049' }
+                }}
+              >
+                Download for Android
+              </Button>
+              <Button
+                variant="contained"
+                startIcon={<AppleIcon />}
+                sx={{
+                  backgroundColor: '#000',
+                  color: 'white',
+                  py: 1.5,
+                  '&:hover': { backgroundColor: '#333' }
+                }}
+              >
+                Download for iOS
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+
+        <Typography variant="body2" sx={{ mt: 4, color: '#666' }}>
+          Join millions of users worldwide • Safe • Reliable • Fast
+        </Typography>
       </Box>
     </Box>
   );
