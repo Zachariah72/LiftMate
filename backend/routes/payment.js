@@ -1,17 +1,47 @@
 const express = require('express');
 const { stkPush, stkPushQuery, transactionStatusQuery, accountBalance } = require('../mpesa');
 const Ride = require('../models/Ride');
+const { verifyToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Start M-Pesa payment
-router.post('/mpesa', async (req, res) => {
-    const { phone, amount } = req.body;
+// Start M-Pesa payment for a ride
+router.post('/mpesa', verifyToken, async (req, res) => {
+    const { phone, amount, rideId } = req.body;
+    if (!phone || !amount || !rideId) {
+        return res.status(400).json({ message: 'Phone, amount, and rideId are required' });
+    }
+
     try {
-        const response = await stkPush(phone, amount);
-        res.json(response);
+        // Verify the ride belongs to the user
+        const ride = await Ride.findById(rideId);
+        if (!ride) {
+            return res.status(404).json({ message: 'Ride not found' });
+        }
+
+        if (ride.passenger.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'Not authorized to pay for this ride' });
+        }
+
+        if (ride.paymentStatus === 'paid') {
+            return res.status(400).json({ message: 'Ride already paid' });
+        }
+
+        const response = await stkPush(phone, amount, rideId);
+
+        // Store the CheckoutRequestID in the ride
+        if (response.CheckoutRequestID) {
+            await Ride.findByIdAndUpdate(rideId, { mpesaCheckoutRequestId: response.CheckoutRequestID });
+        }
+
+        res.json({
+            message: 'M-Pesa payment initiated',
+            response,
+            rideId
+        });
     } catch (err) {
-        res.status(500).json({ message: 'M-Pesa payment error', err });
+        console.error('M-Pesa payment error:', err);
+        res.status(500).json({ message: 'M-Pesa payment failed', error: err.message });
     }
 });
 
@@ -53,6 +83,32 @@ router.get('/mpesa-account-balance', async (req, res) => {
     }
 });
 
+// Get payment status for a ride
+router.get('/ride/:rideId', verifyToken, async (req, res) => {
+    try {
+        const ride = await Ride.findById(req.params.rideId);
+        if (!ride) {
+            return res.status(404).json({ message: 'Ride not found' });
+        }
+
+        // Check if user is authorized to view this payment
+        if (ride.passenger.toString() !== req.user.id && ride.driver?.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'Not authorized' });
+        }
+
+        res.json({
+            rideId: ride._id,
+            paymentStatus: ride.paymentStatus,
+            mpesaReceipt: ride.mpesaReceipt,
+            fare: ride.fare,
+            checkoutRequestId: ride.mpesaCheckoutRequestId
+        });
+    } catch (error) {
+        console.error('Error fetching payment status:', error);
+        res.status(500).json({ message: 'Error fetching payment status' });
+    }
+});
+
 // M-Pesa STK Push callback
 router.post('/callback', async (req, res) => {
     const { Body } = req.body;
@@ -81,6 +137,7 @@ router.post('/callback', async (req, res) => {
 
                 if (ride) {
                     console.log('Ride payment updated:', ride._id);
+                    // Optionally notify the driver/passenger about successful payment
                 } else {
                     console.log('Ride not found for CheckoutRequestID:', CheckoutRequestID);
                 }

@@ -6,8 +6,11 @@ export const createRide = (data, token) =>
 export const getRides = (token) =>
   api.get('/rides', { headers: { Authorization: `Bearer ${token}` } });
 
-export const payRide = (phone, amount, token) =>
-  api.post('/rides/pay', { phone, amount }, { headers: { Authorization: `Bearer ${token}` } });
+export const payRide = (phone, amount, rideId, token) =>
+  api.post('/payment/mpesa', { phone, amount, rideId }, { headers: { Authorization: `Bearer ${token}` } });
+
+export const getPaymentStatus = (rideId, token) =>
+  api.get(`/payment/ride/${rideId}`, { headers: { Authorization: `Bearer ${token}` } });
 
 
 export const getAvailableRides = (token) =>
