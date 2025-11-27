@@ -633,100 +633,102 @@ const Home = () => {
           >
             Get information about how companies leverage LiftMate for Business.
           </Typography>
-          <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  borderRadius: 3,
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                  transition: 'all 0.3s ease',
-                  animation: `${slideIn} 1s ease-out 0.2s both`,
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
-                  }
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
-                  ✈️ Business Travel
-                </Typography>
-                <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
-                  Corporate travel management
-                </Typography>
-              </Card>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid container spacing={3} sx={{ mb: 4, maxWidth: '1000px' }}>
+              <Grid item xs={12} sm={6} md={3}>
+                <Card
+                  sx={{
+                    textAlign: 'center',
+                    p: 3,
+                    borderRadius: 3,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    animation: `${slideIn} 1s ease-out 0.2s both`,
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
+                    }
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
+                    ✈️ Business Travel
+                  </Typography>
+                  <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
+                    Corporate travel management
+                  </Typography>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Card
+                  sx={{
+                    textAlign: 'center',
+                    p: 3,
+                    borderRadius: 3,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    animation: `${slideIn} 1s ease-out 0.4s both`,
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
+                    }
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
+                    🎁 Courtesy Rides
+                  </Typography>
+                  <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
+                    Guest and VIP transportation
+                  </Typography>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Card
+                  sx={{
+                    textAlign: 'center',
+                    p: 3,
+                    borderRadius: 3,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    animation: `${slideIn} 1s ease-out 0.6s both`,
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
+                    }
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
+                    🍽️ Meal Programs
+                  </Typography>
+                  <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
+                    Food delivery services
+                  </Typography>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Card
+                  sx={{
+                    textAlign: 'center',
+                    p: 3,
+                    borderRadius: 3,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    animation: `${slideIn} 1s ease-out 0.8s both`,
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
+                    }
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
+                    📦 Item Delivery
+                  </Typography>
+                  <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
+                    Package and parcel delivery
+                  </Typography>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  borderRadius: 3,
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                  transition: 'all 0.3s ease',
-                  animation: `${slideIn} 1s ease-out 0.4s both`,
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
-                  }
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
-                  🎁 Courtesy Rides
-                </Typography>
-                <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
-                  Guest and VIP transportation
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  borderRadius: 3,
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                  transition: 'all 0.3s ease',
-                  animation: `${slideIn} 1s ease-out 0.6s both`,
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
-                  }
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
-                  🍽️ Meal Programs
-                </Typography>
-                <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
-                  Food delivery services
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  borderRadius: 3,
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                  transition: 'all 0.3s ease',
-                  animation: `${slideIn} 1s ease-out 0.8s both`,
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 8px 30px rgba(0,0,0,0.2)'
-                  }
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333', mb: 1 }}>
-                  📦 Item Delivery
-                </Typography>
-                <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
-                  Package and parcel delivery
-                </Typography>
-              </Card>
-            </Grid>
-          </Grid>
+          </Box>
           <Button
             variant="contained"
             sx={{
