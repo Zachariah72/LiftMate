@@ -2,8 +2,11 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// Ensure API_URL always ends with /api for proper routing
+const BASE_URL = API_URL.endsWith('/api') ? API_URL : `${API_URL}/api`;
+
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: BASE_URL,
 });
 
 // Response interceptor to handle token errors
