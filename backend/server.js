@@ -5,6 +5,7 @@ const path = require('path');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
+const authDebugRoutes = require('./routes/auth_debug'); // Add debug routes
 const rideRoutes = require('./routes/rides'); // <-- Added rides routes
 const paymentRoutes = require('./routes/payment');
 
@@ -63,6 +64,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/auth-debug', authDebugRoutes); // Add debug routes
 app.use('/api/rides', rideRoutes); // <-- Mount ride routes
 app.use('/api/payment', paymentRoutes); // <-- Mount payment routes
 
