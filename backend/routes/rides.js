@@ -32,13 +32,19 @@ router.post('/create', verifyToken, async (req, res) => {
 
 // Pay for a ride via M-Pesa STK Push
 router.post('/pay', verifyToken, async (req, res) => {
-  const { phone, amount } = req.body;
-  if (!phone || !amount) {
-    return res.status(400).json({ message: 'Phone and amount are required' });
+  const { phone, amount, rideId } = req.body;
+  if (!phone || !amount || !rideId) {
+    return res.status(400).json({ message: 'Phone, amount, and rideId are required' });
   }
 
   try {
-    const response = await stkPush(phone, amount);
+    const response = await stkPush(phone, amount, rideId);
+
+    // Store the CheckoutRequestID in the ride
+    if (response.CheckoutRequestID) {
+      await Ride.findByIdAndUpdate(rideId, { mpesaCheckoutRequestId: response.CheckoutRequestID });
+    }
+
     res.json({ message: 'STK Push initiated', response });
   } catch (err) {
     console.error(err);

@@ -1,5 +1,6 @@
 const express = require('express');
 const { stkPush } = require('../mpesa');
+const Ride = require('../models/Ride');
 
 const router = express.Router();
 
@@ -12,6 +13,54 @@ router.post('/mpesa', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'M-Pesa payment error', err });
     }
+});
+
+// M-Pesa STK Push callback
+router.post('/callback', async (req, res) => {
+    const { Body } = req.body;
+
+    if (Body && Body.stkCallback) {
+        const { MerchantRequestID, CheckoutRequestID, ResultCode, ResultDesc, CallbackMetadata } = Body.stkCallback;
+
+        try {
+            if (ResultCode === 0 && CallbackMetadata) {
+                // Payment successful
+                const receiptNumber = CallbackMetadata.Item.find(item => item.Name === 'MpesaReceiptNumber')?.Value;
+                const amount = CallbackMetadata.Item.find(item => item.Name === 'Amount')?.Value;
+                const phone = CallbackMetadata.Item.find(item => item.Name === 'PhoneNumber')?.Value;
+
+                console.log('Payment successful:', { MerchantRequestID, CheckoutRequestID, receiptNumber, amount, phone });
+
+                // Find and update the ride
+                const ride = await Ride.findOneAndUpdate(
+                    { mpesaCheckoutRequestId: CheckoutRequestID },
+                    {
+                        paymentStatus: 'paid',
+                        mpesaReceipt: receiptNumber
+                    },
+                    { new: true }
+                );
+
+                if (ride) {
+                    console.log('Ride payment updated:', ride._id);
+                } else {
+                    console.log('Ride not found for CheckoutRequestID:', CheckoutRequestID);
+                }
+            } else {
+                // Payment failed - update ride status to failed
+                await Ride.findOneAndUpdate(
+                    { mpesaCheckoutRequestId: CheckoutRequestID },
+                    { paymentStatus: 'failed' }
+                );
+                console.log('Payment failed:', { MerchantRequestID, CheckoutRequestID, ResultDesc });
+            }
+        } catch (error) {
+            console.error('Error processing M-Pesa callback:', error);
+        }
+    }
+
+    // Always respond with success to M-Pesa
+    res.json({ ResultCode: 0, ResultDesc: 'Accepted' });
 });
 
 module.exports = router;

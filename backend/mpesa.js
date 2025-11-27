@@ -6,7 +6,8 @@ const {
   MPESA_CONSUMER_KEY,
   MPESA_CONSUMER_SECRET,
   MPESA_PASSKEY,
-  MPESA_ENV = 'sandbox' // default to sandbox if not set
+  MPESA_ENV = 'sandbox', // default to sandbox if not set
+  MPESA_CALLBACK_URL = 'http://localhost:5000/api/payment/callback'
 } = process.env;
 
 // Get OAuth access token
@@ -22,7 +23,7 @@ async function getAccessToken() {
 }
 
 // Trigger STK Push payment
-async function stkPush(phone, amount) {
+async function stkPush(phone, amount, rideId) {
   const token = await getAccessToken();
   const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14); // YYYYMMDDHHMMSS
   const password = Buffer.from(`${MPESA_SHORTCODE}${MPESA_PASSKEY}${timestamp}`).toString('base64');
@@ -41,8 +42,8 @@ async function stkPush(phone, amount) {
     PartyA: phone,
     PartyB: MPESA_SHORTCODE,
     PhoneNumber: phone,
-    CallBackURL: 'https://yourdomain.com/api/payment/callback',
-    AccountReference: 'LiftMateRide',
+    CallBackURL: MPESA_CALLBACK_URL,
+    AccountReference: `LiftMateRide-${rideId}`,
     TransactionDesc: 'Payment for ride'
   };
 
