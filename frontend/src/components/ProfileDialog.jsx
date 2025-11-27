@@ -21,11 +21,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
 import KycVerificationDialog from './KycVerificationDialog';
 
 const ProfileDialog = ({ open, onClose, user, onSave }) => {
   const [formData, setFormData] = useState({
     nickname: user?.nickname || '',
+    phoneNumber: user?.phoneNumber || '',
     profilePicture: user?.profilePicture || ''
   });
   const [selectedFile, setSelectedFile] = useState(null);
@@ -235,6 +237,26 @@ const ProfileDialog = ({ open, onClose, user, onSave }) => {
                 placeholder="Enter your preferred display name"
                 InputProps={{
                   startAdornment: <PersonIcon sx={{ color: '#667eea', mr: 1 }} />
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '&:hover fieldset': { borderColor: '#667eea' },
+                    '&.Mui-focused fieldset': { borderColor: '#667eea' }
+                  }
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Phone Number"
+                type="tel"
+                value={formData.phoneNumber}
+                onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                placeholder="+254 XXX XXX XXX"
+                InputProps={{
+                  startAdornment: <PhoneIcon sx={{ color: '#667eea', mr: 1 }} />
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {

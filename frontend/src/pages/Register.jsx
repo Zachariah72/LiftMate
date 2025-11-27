@@ -27,7 +27,8 @@ import {
   Wc as GenderIcon,
   DirectionsCar as CarIcon,
   ColorLens as ColorIcon,
-  CalendarToday as CalendarIcon
+  CalendarToday as CalendarIcon,
+  Phone as PhoneIcon
 } from '@mui/icons-material';
 
 // Define animations
@@ -67,7 +68,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await registerUser(data.name, data.email, data.password, data.role, data.gender, data.dateOfBirth, data.carRegNumber, data.carMake, data.carModel, data.carColor);
+    const res = await registerUser(data.name, data.email, data.password, data.role, data.gender, data.dateOfBirth, data.phoneNumber, data.carRegNumber, data.carMake, data.carModel, data.carColor);
     setLoading(false);
 
     if (res.success) {
@@ -218,6 +219,23 @@ const Register = () => {
                   required
                   InputProps={{
                     startAdornment: <EmailIcon sx={{ color: '#667eea', mr: 1 }} />
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '&:hover fieldset': { borderColor: '#667eea' },
+                      '&.Mui-focused fieldset': { borderColor: '#667eea' }
+                    }
+                  }}
+                />
+
+                <TextField
+                  label="Phone Number"
+                  type="tel"
+                  fullWidth
+                  {...register('phoneNumber')}
+                  placeholder="+254 XXX XXX XXX"
+                  InputProps={{
+                    startAdornment: <PhoneIcon sx={{ color: '#667eea', mr: 1 }} />
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {

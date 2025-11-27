@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
-    const { name, email, password, role, gender, dateOfBirth, carRegNumber, carMake, carModel, carColor } = req.body;
+    const { name, email, password, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor } = req.body;
     try {
         // Check if user already exists
         const existingUser = await User.findOne({ email });
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
         }
 
         const hashed = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashed, role, gender, dateOfBirth, carRegNumber, carMake, carModel, carColor });
+        const user = new User({ name, email, password: hashed, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor });
         await user.save();
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });

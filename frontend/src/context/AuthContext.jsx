@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password, role, gender, dateOfBirth, carRegNumber, carMake, carModel, carColor) => {
+  const register = async (name, email, password, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor) => {
     try {
-      const res = await api.post("/auth/register", { name, email, password, role, gender, dateOfBirth, carRegNumber, carMake, carModel, carColor });
+      const res = await api.post("/auth/register", { name, email, password, role, gender, dateOfBirth, phoneNumber, carRegNumber, carMake, carModel, carColor });
       const token = res.data.token;
 
       const decoded = jwtDecode(token); // ✅ Works

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { completeRide, markDriverArrived } from '../api/rides';
 import MapView from '../components/MapView';
+import LiveTripTracker from '../components/LiveTripTracker';
 import { Container, Typography, Button, Box, Card, CardContent, Grid, Paper } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -73,13 +74,21 @@ const CurrentRidePage = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
+          <LiveTripTracker ride={currentRide} />
+
           <Card sx={{ mb: 2 }}>
             <CardContent>
               <Typography variant="h6" sx={{ color: 'green' }}>Ride Details</Typography>
               <Typography><strong>Passenger:</strong> {currentRide.passenger.name}</Typography>
+              {currentRide.passenger.phoneNumber && (
+                <Typography><strong>📞 Phone:</strong> {currentRide.passenger.phoneNumber}</Typography>
+              )}
               <Typography><strong>From:</strong> {currentRide.pickupLocation}</Typography>
               <Typography><strong>To:</strong> {currentRide.dropoffLocation}</Typography>
               <Typography><strong>Fare:</strong> KES {currentRide.fare}</Typography>
+              {user?.role === 'driver' && currentRide.driver?.phoneNumber && (
+                <Typography><strong>🚗 Driver Phone:</strong> {currentRide.driver.phoneNumber}</Typography>
+              )}
             </CardContent>
           </Card>
 
