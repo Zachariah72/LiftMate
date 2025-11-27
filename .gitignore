@@ -3,3 +3,9 @@ node_modules/
 *.log
 .DS_Store
 frontend/my-clerk-app/
+
+# MongoDB Data
+mongodb_data/
+*.wt
+WiredTiger*
+mongod.lock
