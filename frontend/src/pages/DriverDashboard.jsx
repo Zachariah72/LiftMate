@@ -173,8 +173,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
       </Typography>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={2}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 4, width: '100%', justifyContent: 'space-between' }}>
+        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%)',
@@ -182,6 +182,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               animation: `${slideIn} 0.6s ease-out`,
+              height: '100%',
               '&:hover': {
                 transform: 'translateY(-5px)',
                 boxShadow: '0 8px 25px rgba(76, 175, 80, 0.3)',
@@ -190,7 +191,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
             }}
             onClick={() => navigate('/ride-requests-list')}
           >
-            <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <CardContent sx={{ textAlign: 'center', py: 3, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <Box sx={{
                 backgroundColor: '#4caf50',
                 borderRadius: '50%',
@@ -210,8 +211,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Typography sx={{ color: '#388e3c', fontWeight: 'medium' }}>Available Requests</Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={12} md={2}>
+        </Box>
+        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%)',
@@ -219,6 +220,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               cursor: currentRide ? 'pointer' : 'default',
               transition: 'all 0.3s ease',
               animation: `${slideIn} 0.6s ease-out 0.1s both`,
+              height: '100%',
               '&:hover': currentRide ? {
                 transform: 'translateY(-5px)',
                 boxShadow: '0 8px 25px rgba(255, 152, 0, 0.3)',
@@ -227,7 +229,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
             }}
             onClick={() => currentRide && navigate('/current-ride')}
           >
-            <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <CardContent sx={{ textAlign: 'center', py: 3, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <Box sx={{
                 backgroundColor: '#ff9800',
                 borderRadius: '50%',
@@ -247,14 +249,15 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Typography sx={{ color: '#e65100', fontWeight: 'medium' }}>Current Ride</Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={12} md={2}>
+        </Box>
+        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%)',
               borderLeft: '4px solid #e91e63',
               transition: 'all 0.3s ease',
               animation: `${slideIn} 0.6s ease-out 0.2s both`,
+              height: '100%',
               '&:hover': {
                 transform: 'translateY(-5px)',
                 boxShadow: '0 8px 25px rgba(233, 30, 99, 0.3)',
@@ -262,7 +265,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               }
             }}
           >
-            <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <CardContent sx={{ textAlign: 'center', py: 3, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <Box sx={{
                 backgroundColor: '#e91e63',
                 borderRadius: '50%',
@@ -282,21 +285,22 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Typography sx={{ color: '#ad1457', fontWeight: 'medium' }}>Orders Received</Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={12} md={2}>
+        </Box>
+        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
           <Card
             sx={{
               background: currentRide ? 'linear-gradient(135deg, #fff9c4 0%, #fff176 100%)' : 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
               border: `2px solid ${currentRide ? '#ffeb3b' : '#bdbdbd'}`,
               transition: 'all 0.3s ease',
               animation: `${slideIn} 0.6s ease-out 0.3s both`,
+              height: '100%',
               '&:hover': {
                 transform: 'translateY(-5px)',
                 boxShadow: '0 8px 25px rgba(255, 235, 59, 0.3)'
               }
             }}
           >
-            <CardContent sx={{ textAlign: 'center', py: 3 }}>
+            <CardContent sx={{ textAlign: 'center', py: 3, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <Box sx={{
                 backgroundColor: currentRide ? '#ffeb3b' : '#bdbdbd',
                 borderRadius: '50%',
@@ -320,14 +324,15 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={12} md={2}>
+        </Box>
+        <Box sx={{ flex: '1 1 calc(20% - 16px)', minWidth: '200px', maxWidth: '250px' }}>
           <Card
             sx={{
               background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
               borderLeft: '4px solid #2196f3',
               transition: 'all 0.3s ease',
               animation: `${slideIn} 0.6s ease-out 0.4s both`,
+              height: '100%',
               '&:hover': {
                 transform: 'translateY(-5px)',
                 boxShadow: '0 8px 25px rgba(33, 150, 243, 0.3)',
@@ -335,7 +340,7 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               }
             }}
           >
-            <CardContent sx={{ textAlign: 'center', py: 3, position: 'relative' }}>
+            <CardContent sx={{ textAlign: 'center', py: 3, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
                 <Box sx={{
                   backgroundColor: '#2196f3',
@@ -367,8 +372,8 @@ const DriverDashboard = ({ onStatusUpdate }) => {
               <Typography sx={{ color: '#1565c0', fontWeight: 'medium' }}>Total Earnings</Typography>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       {/* Orders Received Tabs */}
       <Card sx={{ mb: 4 }}>
