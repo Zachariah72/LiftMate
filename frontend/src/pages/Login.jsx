@@ -123,6 +123,7 @@ const Login = () => {
                   label="Email Address"
                   type="email"
                   fullWidth
+                  autoComplete="email"
                   {...register('email')}
                   required
                   InputProps={{
@@ -140,6 +141,7 @@ const Login = () => {
                   label="Password"
                   type="password"
                   fullWidth
+                  autoComplete="current-password"
                   {...register('password')}
                   required
                   InputProps={{

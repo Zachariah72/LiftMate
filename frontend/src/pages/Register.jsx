@@ -198,6 +198,7 @@ const Register = () => {
                 <TextField
                   label="Full Name"
                   fullWidth
+                  autoComplete="name"
                   {...register('name')}
                   required
                   InputProps={{
@@ -215,6 +216,7 @@ const Register = () => {
                   label="Email Address"
                   type="email"
                   fullWidth
+                  autoComplete="email"
                   {...register('email')}
                   required
                   InputProps={{
@@ -232,6 +234,7 @@ const Register = () => {
                   label="Phone Number"
                   type="tel"
                   fullWidth
+                  autoComplete="tel"
                   {...register('phoneNumber')}
                   placeholder="+254 XXX XXX XXX"
                   InputProps={{
@@ -249,6 +252,7 @@ const Register = () => {
                   label="Password"
                   type="password"
                   fullWidth
+                  autoComplete="new-password"
                   {...register('password')}
                   required
                   InputProps={{
