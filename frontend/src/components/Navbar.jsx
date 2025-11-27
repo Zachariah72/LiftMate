@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme as useCustomTheme } from '../context/ThemeContext';
 import { getDriverStats } from '../api/rides';
 import SettingsDialog from './SettingsDialog';
 import ProfileDialog from './ProfileDialog';
@@ -11,6 +11,7 @@ import {
   Button,
   Typography,
   Box,
+  useTheme,
   useMediaQuery,
   IconButton,
   Menu,
@@ -49,11 +50,11 @@ const fadeIn = keyframes`
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
-  const { currentTheme, updateTheme, soundEnabled, toggleSound } = useTheme();
+  const { currentTheme, updateTheme, soundEnabled, toggleSound } = useCustomTheme();
   const location = useLocation();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
   const [anchorEl, setAnchorEl] = useState(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [driverStats, setDriverStats] = useState({ ordersReceived: { today: 0 }, earnings: 0 });
